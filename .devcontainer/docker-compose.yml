@@ -1,0 +1,18 @@
+version: "3"
+services:
+  web:
+    build: server
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    networks:
+      - scan_stock
+    volumes:
+      - ..:/workspace:cached
+  elastic_search:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - scan_stock
+networks:
+  scan_stock:
